@@ -1,6 +1,6 @@
 # Warehouse Logistics — Desktop
 
-JavaFX-приложение для логистики. Работает **через REST API** ([`warehouse-api`](../warehouse-api/)) — прямого подключения к БД больше нет.
+JavaFX-приложение для логистики. Работает **через REST API** ([`warehouse-api`](../warehouse-api/))
 
 ## Модули
 
