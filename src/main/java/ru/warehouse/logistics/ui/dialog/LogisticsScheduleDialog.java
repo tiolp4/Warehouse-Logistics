@@ -3,6 +3,7 @@ package ru.warehouse.logistics.ui.dialog;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 import ru.warehouse.logistics.model.LogisticsSchedule;
 import ru.warehouse.logistics.model.TransitShipment;
@@ -20,7 +21,8 @@ public class LogisticsScheduleDialog extends Dialog<UUID> {
 
     private TextField driverField;
     private TextField vehicleField;
-    private TextField routeField;
+    private TextField routeFromField;
+    private TextField routeToField;
     private DatePicker datePicker;
     private TextField startField;
     private TextField endField;
@@ -45,11 +47,16 @@ public class LogisticsScheduleDialog extends Dialog<UUID> {
                 LocalTime start = LocalTime.parse(startField.getText().strip());
                 LocalTime end   = LocalTime.parse(endField.getText().strip());
                 TransitShipment ts = shipmentCombo.getValue();
+                String from = routeFromField.getText().strip();
+                String to   = routeToField.getText().strip();
+                if (from.isBlank() || to.isBlank())
+                    throw new IllegalArgumentException("Заполните точки маршрута: откуда и куда");
+                String route = from + " → " + to;
                 LogisticsSchedule s = new LogisticsSchedule(
                         null,
                         driverField.getText().strip(),
                         vehicleField.getText().strip(),
-                        routeField.getText().strip(),
+                        route,
                         datePicker.getValue(),
                         start, end,
                         statusCombo.getValue(),
@@ -67,9 +74,19 @@ public class LogisticsScheduleDialog extends Dialog<UUID> {
     }
 
     private GridPane buildContent() {
-        driverField  = new TextField();
-        vehicleField = new TextField();
-        routeField   = new TextField();
+        driverField    = new TextField();
+        vehicleField   = new TextField();
+        routeFromField = new TextField();
+        routeFromField.setPromptText("Откуда");
+        routeToField   = new TextField();
+        routeToField.setPromptText("Куда");
+        Label arrowLabel = new Label("→");
+        arrowLabel.setStyle("-fx-font-size: 16px; -fx-padding: 0 6;");
+        HBox routeBox = new HBox(routeFromField, arrowLabel, routeToField);
+        routeBox.setSpacing(0);
+        routeBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        HBox.setHgrow(routeFromField, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(routeToField,   javafx.scene.layout.Priority.ALWAYS);
         datePicker   = new DatePicker(LocalDate.now());
         startField   = new TextField("08:00");
         endField     = new TextField("17:00");
@@ -91,7 +108,7 @@ public class LogisticsScheduleDialog extends Dialog<UUID> {
         int r = 0;
         g.add(new Label("Водитель:"),       0, r); g.add(driverField,   1, r++);
         g.add(new Label("Транспорт:"),       0, r); g.add(vehicleField,  1, r++);
-        g.add(new Label("Маршрут:"),         0, r); g.add(routeField,    1, r++);
+        g.add(new Label("Маршрут:"),         0, r); g.add(routeBox,      1, r++);
         g.add(new Label("Дата:"),             0, r); g.add(datePicker,    1, r++);
         g.add(new Label("Начало (HH:mm):"), 0, r); g.add(startField,    1, r++);
         g.add(new Label("Конец (HH:mm):"),  0, r); g.add(endField,      1, r++);

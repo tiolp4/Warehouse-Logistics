@@ -43,7 +43,7 @@ public final class ApiClient {
 
     private volatile HttpClient http;
     private final ObjectMapper json;
-    private final String baseUrl;
+    private String baseUrl;          // not final: override-able in tests via reflection
     private final Duration timeout;
 
     private HttpClient http() {

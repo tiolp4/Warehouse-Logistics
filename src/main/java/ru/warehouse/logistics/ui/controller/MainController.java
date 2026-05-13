@@ -110,7 +110,7 @@ public class MainController implements Initializable {
                 r.getValue().expectedArrival().toString()));
         colTrActual  .setCellValueFactory(r -> new SimpleStringProperty(
                 r.getValue().actualArrival() != null ? r.getValue().actualArrival().toString() : "—"));
-        colTrStatus  .setCellValueFactory(r -> new SimpleStringProperty(r.getValue().status().name()));
+        colTrStatus  .setCellValueFactory(r -> new SimpleStringProperty(localizeTransit(r.getValue().status())));
 
         transitTable.getSelectionModel().selectedItemProperty()
                 .addListener((obs, old, sel) -> {
@@ -193,7 +193,7 @@ public class MainController implements Initializable {
         colSchRoute  .setCellValueFactory(r -> new SimpleStringProperty(r.getValue().route()));
         colSchStart  .setCellValueFactory(r -> new SimpleStringProperty(r.getValue().shiftStart().toString()));
         colSchEnd    .setCellValueFactory(r -> new SimpleStringProperty(r.getValue().shiftEnd().toString()));
-        colSchStatus .setCellValueFactory(r -> new SimpleStringProperty(r.getValue().status().name()));
+        colSchStatus .setCellValueFactory(r -> new SimpleStringProperty(localizeSchedule(r.getValue().status())));
         colSchShip   .setCellValueFactory(r -> new SimpleStringProperty(
                 r.getValue().shipmentTracking() != null ? r.getValue().shipmentTracking() : "—"));
 
@@ -418,5 +418,26 @@ public class MainController implements Initializable {
 
     private void showStatus(String msg) {
         statusLabel.setText(msg);
+    }
+
+    // ── Status localization ─────────────────────────────────
+
+    private static String localizeTransit(TransitShipment.Status s) {
+        return switch (s) {
+            case PLANNED    -> "Запланировано";
+            case IN_TRANSIT -> "В пути";
+            case DELIVERED  -> "Доставлено";
+            case DELAYED    -> "Задержка";
+            case CANCELLED  -> "Отменено";
+        };
+    }
+
+    private static String localizeSchedule(LogisticsSchedule.Status s) {
+        return switch (s) {
+            case SCHEDULED   -> "Запланировано";
+            case IN_PROGRESS -> "В работе";
+            case COMPLETED   -> "Завершено";
+            case CANCELLED   -> "Отменено";
+        };
     }
 }
