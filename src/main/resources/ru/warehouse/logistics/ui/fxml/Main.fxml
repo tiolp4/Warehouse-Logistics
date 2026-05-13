@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ru.warehouse.logistics.ui.controller.MainController"
+            style="-fx-background-color: #1a1d23;">
+
+    <top>
+        <ToolBar styleClass="tool-bar">
+            <Label text="🚚  Логистика" styleClass="toolbar-brand"/>
+            <Separator orientation="VERTICAL" style="-fx-padding: 0 4;"/>
+            <Button text="🚚  Поставка в пути" onAction="#onNewTransit"/>
+            <Button text="📅  График работы"   onAction="#onNewSchedule"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userLabel" styleClass="label-muted"
+                   style="-fx-padding: 0 8 0 0; -fx-font-size: 12px;"/>
+            <Button text="⎋  Выйти" onAction="#onLogout"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+
+            <!-- ── TRANSIT TAB ── -->
+            <Tab text="🚚  Товары в пути">
+                <VBox spacing="10" style="-fx-padding: 16;">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Поставки в пути и доставленные"
+                               styleClass="section-label"
+                               style="-fx-font-size: 13px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="➕  Добавить"   onAction="#onNewTransit"/>
+                        <Button fx:id="btnTransitInTransit"
+                                text="🚛  В пути"     onAction="#onTransitInTransit" disable="true"/>
+                        <Button fx:id="btnTransitArrived"
+                                text="✔  Доставлено"  onAction="#onTransitArrived"  disable="true"
+                                styleClass="btn-success"/>
+                        <Button fx:id="btnTransitCancel"
+                                text="✖  Отменить"    onAction="#onTransitCancel"   disable="true"/>
+                        <Button text="⟳  Обновить"    onAction="#onRefreshTransit"/>
+                    </HBox>
+                    <TableView fx:id="transitTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colTrTracking" text="Трек №"     prefWidth="140"/>
+                            <TableColumn fx:id="colTrCarrier"  text="Перевозчик" prefWidth="140"/>
+                            <TableColumn fx:id="colTrSupplier" text="Поставщик"  prefWidth="170"/>
+                            <TableColumn fx:id="colTrOrigin"   text="Откуда"     prefWidth="140"/>
+                            <TableColumn fx:id="colTrDest"     text="Куда"       prefWidth="120"/>
+                            <TableColumn fx:id="colTrDeparture" text="Отправлено" prefWidth="100"/>
+                            <TableColumn fx:id="colTrExpected" text="Ожидается"  prefWidth="100"/>
+                            <TableColumn fx:id="colTrActual"   text="Прибыло"    prefWidth="100"/>
+                            <TableColumn fx:id="colTrStatus"   text="Статус"     prefWidth="110"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Нет активных поставок" styleClass="label-hint"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- ── SCHEDULE TAB ── -->
+            <Tab text="📅  Графики работы">
+                <VBox spacing="10" style="-fx-padding: 16;">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="График водителей и маршрутов"
+                               styleClass="section-label"
+                               style="-fx-font-size: 13px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="С:"/>
+                        <DatePicker fx:id="schedFromPicker"/>
+                        <Label text="По:"/>
+                        <DatePicker fx:id="schedToPicker"/>
+                        <Button text="🔍  Фильтр"     onAction="#onFilterSchedules"/>
+                        <Button text="➕  Добавить"   onAction="#onNewSchedule"/>
+                        <Button fx:id="btnSchedStart"
+                                text="▶  Запустить"   onAction="#onScheduleStart"   disable="true"/>
+                        <Button fx:id="btnSchedDone"
+                                text="✔  Завершить"   onAction="#onScheduleDone"    disable="true"
+                                styleClass="btn-success"/>
+                        <Button fx:id="btnSchedCancel"
+                                text="✖  Отменить"    onAction="#onScheduleCancel"  disable="true"/>
+                    </HBox>
+                    <TableView fx:id="scheduleTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colSchDate"    text="Дата"      prefWidth="100"/>
+                            <TableColumn fx:id="colSchDriver"  text="Водитель"  prefWidth="170"/>
+                            <TableColumn fx:id="colSchVehicle" text="Транспорт" prefWidth="120"/>
+                            <TableColumn fx:id="colSchRoute"   text="Маршрут"   prefWidth="220"/>
+                            <TableColumn fx:id="colSchStart"   text="Начало"    prefWidth="80"/>
+                            <TableColumn fx:id="colSchEnd"     text="Конец"     prefWidth="80"/>
+                            <TableColumn fx:id="colSchStatus"  text="Статус"    prefWidth="120"/>
+                            <TableColumn fx:id="colSchShip"    text="Поставка"  prefWidth="140"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Нет назначенных смен" styleClass="label-hint"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- ── ANALYTICS TAB ── -->
+            <Tab text="📊  Аналитика">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="14" style="-fx-padding: 16;">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Анализ работы логистики" styleClass="section-label"
+                                   style="-fx-font-size: 13px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label text="Период (дней):"/>
+                            <Spinner fx:id="periodSpinner" prefWidth="80"/>
+                            <Button text="⟳  Обновить" onAction="#onRefreshAnalytics"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <VBox fx:id="kpiShipments"  styleClass="kpi-tile" spacing="2"/>
+                            <VBox fx:id="kpiInTransit"  styleClass="kpi-tile" spacing="2"/>
+                            <VBox fx:id="kpiDelivered"  styleClass="kpi-tile" spacing="2"/>
+                            <VBox fx:id="kpiDelayed"    styleClass="kpi-tile" spacing="2"/>
+                            <VBox fx:id="kpiSchedules"  styleClass="kpi-tile" spacing="2"/>
+                            <VBox fx:id="kpiSchedToday" styleClass="kpi-tile" spacing="2"/>
+                        </HBox>
+
+                        <BarChart fx:id="flowChart" prefHeight="280">
+                            <xAxis><CategoryAxis fx:id="flowAxisX" label="Дата"/></xAxis>
+                            <yAxis><NumberAxis    fx:id="flowAxisY" label="Поставок"/></yAxis>
+                        </BarChart>
+
+                        <HBox spacing="12">
+                            <PieChart fx:id="transitStatusChart"
+                                      title="Поставки по статусам"
+                                      HBox.hgrow="ALWAYS" prefHeight="260"/>
+                            <PieChart fx:id="scheduleStatusChart"
+                                      title="Смены по статусам"
+                                      HBox.hgrow="ALWAYS" prefHeight="260"/>
+                        </HBox>
+
+                        <HBox spacing="12">
+                            <BarChart fx:id="topCarriersChart" HBox.hgrow="ALWAYS" prefHeight="260"
+                                      title="Топ-5 перевозчиков">
+                                <xAxis><CategoryAxis fx:id="carrAxisX"/></xAxis>
+                                <yAxis><NumberAxis    fx:id="carrAxisY" label="Поставок"/></yAxis>
+                            </BarChart>
+                            <BarChart fx:id="topDriversChart" HBox.hgrow="ALWAYS" prefHeight="260"
+                                      title="Топ водителей по сменам">
+                                <xAxis><CategoryAxis fx:id="drvAxisX"/></xAxis>
+                                <yAxis><NumberAxis    fx:id="drvAxisY" label="Смен"/></yAxis>
+                            </BarChart>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" text="Готов" styleClass="label-hint"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

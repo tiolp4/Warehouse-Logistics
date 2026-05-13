@@ -1,0 +1,423 @@
+/* =====================================================
+   WAREHOUSE MANAGEMENT — DARK THEME
+   ===================================================== */
+
+/* ── Root colors ─────────────────────────────────── */
+.root {
+    -bg-dark:    #1a1d23;
+    -bg-card:    #23262f;
+    -bg-input:   #2a2d38;
+    -bg-hover:   #2f3240;
+    -bg-stripe:  #1f2229;
+    -accent:     #4f8ef7;
+    -accent-hov: #6ba3f8;
+    -accent-dim: #2d4f8a;
+    -success:    #3dba7e;
+    -warn:       #f0a500;
+    -danger:     #e05252;
+    -text-pri:   #e8eaf0;
+    -text-sec:   #9499aa;
+    -text-hint:  #5a5f72;
+    -border:     #33374a;
+
+    -fx-background-color: -bg-dark;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: -text-pri;
+}
+
+/* ── Labels ──────────────────────────────────────── */
+.label { -fx-text-fill: -text-pri; }
+
+.label-muted   { -fx-text-fill: -text-sec; }
+.label-hint    { -fx-text-fill: -text-hint; }
+.label-success { -fx-text-fill: -success; }
+.label-danger  { -fx-text-fill: -danger; }
+.label-accent  { -fx-text-fill: -accent; }
+
+.label-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-pri;
+}
+.label-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: -text-sec;
+}
+
+/* ── Error label ─────────────────────────────────── */
+.error-label {
+    -fx-text-fill: -danger;
+    -fx-font-size: 12px;
+    -fx-padding: 4 0 0 0;
+}
+
+/* ── Separator ───────────────────────────────────── */
+.separator .line { -fx-border-color: -border; }
+
+/* ── Scroll pane ─────────────────────────────────── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane > .viewport { -fx-background-color: transparent; }
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: -bg-card;
+}
+.scroll-bar .thumb {
+    -fx-background-color: -border;
+    -fx-background-radius: 4;
+}
+.scroll-bar .thumb:hover { -fx-background-color: -text-hint; }
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button { -fx-background-color: transparent; }
+
+/* ── Text field / Password field ─────────────────── */
+.text-field, .password-field {
+    -fx-background-color: -bg-input;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: -text-pri;
+    -fx-prompt-text-fill: -text-hint;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -accent;
+    -fx-effect: dropshadow(gaussian, rgba(79,142,247,0.25), 8, 0, 0, 0);
+}
+
+/* ── Combo box ───────────────────────────────────── */
+.combo-box {
+    -fx-background-color: -bg-input;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+.combo-box .list-cell {
+    -fx-text-fill: -text-pri;
+    -fx-background-color: transparent;
+    -fx-padding: 6 12;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: -bg-card;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 16, 0, 0, 4);
+}
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: -bg-hover;
+}
+.combo-box .arrow-button { -fx-background-color: transparent; }
+.combo-box .arrow         { -fx-background-color: -text-sec; }
+
+/* ── Spinner ─────────────────────────────────────── */
+.spinner {
+    -fx-background-color: -bg-input;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+.spinner .text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: -bg-hover;
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.button {
+    -fx-background-color: -bg-hover;
+    -fx-text-fill: -text-pri;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 7 16;
+    -fx-cursor: hand;
+}
+.button:hover   { -fx-background-color: #383c4e; }
+.button:pressed { -fx-background-color: -bg-card; -fx-scale-y: 0.97; }
+
+.btn-primary {
+    -fx-background-color: -accent;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 9 20;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(79,142,247,0.4), 8, 0, 0, 2);
+}
+.btn-primary:hover {
+    -fx-background-color: -accent-hov;
+    -fx-effect: dropshadow(gaussian, rgba(79,142,247,0.55), 12, 0, 0, 3);
+}
+.btn-primary:pressed  { -fx-background-color: -accent-dim; }
+.btn-primary:disabled {
+    -fx-background-color: -bg-hover;
+    -fx-text-fill: -text-hint;
+    -fx-effect: none;
+}
+
+.btn-success {
+    -fx-background-color: -success;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 7 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-success:hover { -fx-background-color: #4fcf92; }
+
+.btn-danger {
+    -fx-background-color: -danger;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 7 16;
+    -fx-cursor: hand;
+}
+
+/* ── Toolbar ─────────────────────────────────────── */
+.tool-bar {
+    -fx-background-color: -bg-card;
+    -fx-border-color: transparent transparent -border transparent;
+    -fx-padding: 8 16;
+    -fx-spacing: 8;
+}
+.tool-bar .button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -text-sec;
+    -fx-padding: 6 14;
+    -fx-font-size: 13px;
+}
+.tool-bar .button:hover {
+    -fx-background-color: -bg-hover;
+    -fx-text-fill: -text-pri;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+.toolbar-brand {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-pri;
+}
+
+/* ── Tab pane ────────────────────────────────────── */
+.tab-pane {
+    -fx-background-color: -bg-dark;
+    -fx-tab-min-height: 36px;
+}
+.tab-pane .tab-header-area { -fx-background-color: -bg-card; }
+.tab-pane .tab-header-background { -fx-background-color: -bg-card; }
+.tab {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 6 20;
+    -fx-cursor: hand;
+}
+.tab .tab-label { -fx-text-fill: -text-sec; -fx-font-size: 13px; }
+.tab:hover      .tab-label { -fx-text-fill: -text-pri; }
+.tab:selected {
+    -fx-background-color: -bg-dark;
+    -fx-border-color: -accent transparent transparent transparent;
+    -fx-border-width: 2 0 0 0;
+}
+.tab:selected .tab-label {
+    -fx-text-fill: -accent;
+    -fx-font-weight: bold;
+}
+.tab-pane .tab-close-button { visibility: hidden; }
+
+/* ── Table view ──────────────────────────────────── */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: -border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .column-header-background {
+    -fx-background-color: -bg-card;
+    -fx-border-color: transparent transparent -border transparent;
+}
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-size: 36px;
+}
+.table-view .column-header .label {
+    -fx-text-fill: -text-sec;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-transform: uppercase;
+    -fx-alignment: center-left;
+    -fx-padding: 0 8;
+}
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent -border transparent;
+    -fx-cell-size: 38px;
+}
+.table-row-cell:odd  { -fx-background-color: -bg-stripe; }
+.table-row-cell:even { -fx-background-color: transparent; }
+.table-row-cell:selected {
+    -fx-background-color: -accent-dim;
+    -fx-border-color: transparent;
+}
+.table-row-cell:hover {
+    -fx-background-color: -bg-hover;
+}
+.table-cell {
+    -fx-text-fill: -text-pri;
+    -fx-padding: 4 8;
+    -fx-alignment: center-left;
+    -fx-border-color: transparent;
+}
+.table-view .placeholder .label { -fx-text-fill: -text-hint; }
+
+/* ── Split pane ──────────────────────────────────── */
+.split-pane {
+    -fx-background-color: -bg-dark;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+.split-pane-divider {
+    -fx-background-color: -border;
+    -fx-padding: 0 1;
+}
+
+/* ── Progress indicator ──────────────────────────── */
+.progress-indicator .indicator { -fx-background-color: transparent; }
+.progress-indicator .progress  { -fx-background-color: -accent; }
+
+/* ── Status bar ──────────────────────────────────── */
+.status-bar {
+    -fx-background-color: -bg-card;
+    -fx-border-color: -border transparent transparent transparent;
+    -fx-padding: 5 16;
+}
+.status-bar .label { -fx-text-fill: -text-hint; -fx-font-size: 12px; }
+
+/* ── Dialog ──────────────────────────────────────── */
+.dialog-pane {
+    -fx-background-color: -bg-card;
+    -fx-border-color: -border;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.dialog-pane .header-panel {
+    -fx-background-color: -bg-dark;
+    -fx-border-color: transparent transparent -border transparent;
+}
+.dialog-pane .header-panel .label {
+    -fx-text-fill: -text-pri;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+.dialog-pane .content { -fx-text-fill: -text-sec; }
+.dialog-pane .button-bar { -fx-background-color: transparent; }
+
+/* ── Alert ───────────────────────────────────────── */
+.alert .graphic-container { -fx-padding: 8 12 8 0; }
+
+/* ── Login card ──────────────────────────────────── */
+.login-card {
+    -fx-background-color: -bg-card;
+    -fx-border-color: -border;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 40 48;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 32, 0, 0, 8);
+}
+
+/* ── Section header inside panels ───────────────── */
+.section-label {
+    -fx-text-fill: -text-sec;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 4 2;
+}
+
+/* ── KPI tiles ──────────────────────────────────── */
+.kpi-tile {
+    -fx-background-color: -bg-card;
+    -fx-background-radius: 8;
+    -fx-border-color: -border;
+    -fx-border-radius: 8;
+    -fx-padding: 12 16 12 16;
+    -fx-min-width: 160;
+    -fx-pref-width: 180;
+}
+.kpi-title {
+    -fx-text-fill: -text-sec;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+.kpi-value {
+    -fx-text-fill: -accent-hov;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+.kpi-sub {
+    -fx-text-fill: -text-hint;
+    -fx-font-size: 11px;
+}
+
+/* ── Charts — dark theme tweaks ─────────────────── */
+.chart {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-pri;
+    -fx-padding: 6;
+}
+.chart-title {
+    -fx-text-fill: -text-pri;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+.chart-plot-background {
+    -fx-background-color: -bg-card;
+}
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+    -fx-stroke: -border;
+}
+.chart-alternative-row-fill,
+.chart-alternative-column-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+}
+.axis {
+    -fx-tick-label-fill: -text-pri;
+    AXIS_COLOR: -text-sec;
+    -fx-font-size: 11px;
+}
+.axis-label {
+    -fx-text-fill: -text-pri;
+}
+.chart-legend {
+    -fx-background-color: -bg-card;
+    -fx-background-radius: 6;
+    -fx-padding: 6 10 6 10;
+}
+.chart-legend-item {
+    -fx-text-fill: -text-pri;
+}
+.chart-pie-label {
+    -fx-fill: -text-pri;
+    -fx-font-size: 11px;
+}
+.chart-pie-label-line {
+    -fx-stroke: -text-sec;
+}
