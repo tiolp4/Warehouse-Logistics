@@ -1,0 +1,13 @@
+src/main/resources/api.properties
+
+target/
+*.jar
+*.war
+*.ear
+
+.idea/
+*.iml
+out/
+
+.DS_Store
+Thumbs.db
